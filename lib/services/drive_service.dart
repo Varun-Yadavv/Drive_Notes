@@ -189,21 +189,29 @@ $content
         'mimeType': 'text/plain',
       };
 
-      final contentBytes = utf8.encode(content);
-      final media = MultipartFile.fromBytes(contentBytes,
-          filename: '$title.txt', contentType: MediaType('text', 'plain'));
+      final metadataPart = jsonEncode(metadata);
+      final boundary = 'foo_bar_baz';
 
-      final form = FormData.fromMap({
-        'metadata': jsonEncode(metadata),
-        'file': media,
-      });
+      final body = '''
+--$boundary
+Content-Type: application/json; charset=UTF-8
+
+$metadataPart
+--$boundary
+Content-Type: text/plain
+
+$content
+--$boundary--
+''';
 
       await dio.patch(
         'https://www.googleapis.com/upload/drive/v3/files/$fileId?uploadType=multipart',
-        data: form,
-        options: Options(headers: {
-          'Content-Type': 'multipart/related; boundary=foo_bar_baz',
-        }),
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': 'multipart/related; boundary=$boundary',
+          },
+        ),
       );
 
       return true;
