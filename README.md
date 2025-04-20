@@ -1,6 +1,6 @@
-# 📓 DriveNotes - Flutter Notes App with Google Drive Integration
+# 📓 Drive Notes - Flutter Notes App with Google Drive Integration
 
-**DriveNotes** is a simple and secure note-taking application built using Flutter. It allows users to log in with Google and manage their personal notes, which are stored as `.txt` files in their own Google Drive account.
+**Drive Notes** is a simple and secure note-taking application built using Flutter. It allows users to log in with Google and manage their personal notes, which are stored as `.txt` files in their own Google Drive account.
 
 ---
 
